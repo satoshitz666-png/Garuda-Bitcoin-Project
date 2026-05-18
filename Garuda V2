@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Garuda Bitcoin | Strategic Digital Treasury</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/inter@5.0.19/index.css">
+  <style>
+    :root {
+      --clr-red: #E3001B;
+      --clr-white: #FFFFFF;
+      --clr-bitcoin: #F7931A;
+      --clr-dark: #0B0F19;
+      --clr-surface: #111827;
+      --clr-surface-hover: #1F2937;
+      --clr-text: #9CA3AF;
+      --clr-text-light: #E5E7EB;
+      --clr-accent: #F59E0B;
+      --font-main: 'Inter', system-ui, -apple-system, sans-serif;
+      --radius-lg: 16px;
+      --radius-md: 12px;
+      --shadow-card: 0 10px 30px -10px rgba(0,0,0,0.5);
+      --transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: var(--font-main);
+      background: var(--clr-dark);
+      color: var(--clr-text-light);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+    a { color: inherit; text-decoration: none; }
+    .container {
+      width: 100%;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 24px;
+      border-radius: 50px;
+      font-weight: 600;
+      font-size: 0.95rem;
+      cursor: pointer;
+      border: none;
+      transition: var(--transition);
+    }
+    .btn-primary {
+      background: linear-gradient(135deg, var(--clr-red), var(--clr-bitcoin));
+      color: var(--clr-white);
+      box-shadow: 0 4px 15px rgba(247, 147, 26, 0.3);
+    }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(247, 147, 26, 0.5); }
+    .btn-outline {
+      background: transparent;
+      border: 1px solid var(--clr-text);
+      color: var(--clr-text-light);
+    }
+    .btn-outline:hover { border-color: var(--clr-white); background: rgba(255,255,255,0.05); }
+
+    /* Nav */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      padding: 16px 0;
+      background: rgba(11, 15, 25, 0.8);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+    }
+    .nav-inner {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .logo {
+      font-weight: 800;
+      font-size: 1.4rem;
+      letter-spacing: -0.5px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .logo span { color: var(--clr-red); }
+    .nav-links { display: flex; gap: 24px; list-style: none; }
+    .nav-links a { font-size: 0.9rem; font-weight: 500; opacity: 0.8; transition: var(--transition); }
+    .nav-links a:hover { opacity: 1; color: var(--clr-bitcoin); }
+
+    /* Hero */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      position: relative;
+      padding-top: 80px;
+      background: radial-gradient(circle at 20% 30%, rgba(227, 0, 27, 0.15) 0%, transparent 50%),
+                  radial-gradient(circle at 80% 70%, rgba(247, 147, 26, 0.15) 0%, transparent 50%);
+    }
+    .hero-content {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+      align-items: center;
+    }
+    .hero-text h1 {
+      font-size: clamp(2.5rem, 5vw, 4.5rem);
+      line-height: 1.1;
+      font-weight: 800;
+      margin-bottom: 24px;
+      background: linear-gradient(to right, var(--clr-white), var(--clr-text-light));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .hero-text p { font-size: 1.1rem; color: var(--clr-text); margin-bottom: 32px; max-width: 500px; }
+    .hero-actions { display: flex; gap: 16px; flex-wrap: wrap; }
+    .hero-visual {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+    }
+    .shield-svg {
+      width: 100%;
+      max-width: 420px;
+      height: auto;
+      filter: drop-shadow(0 20px 40px rgba(247, 147, 26, 0.2));
+      animation: float 6s ease-in-out infinite;
+    }
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-15px); }
+    }
+
+    /* Sections */
+    section { padding: 100px 0; }
+    .section-header {
+      text-align: center;
+      max-width: 700px;
+      margin: 0 auto 60px;
+    }
+    .section-header h2 {
+      font-size: 2.5rem;
+      font-weight: 700;
+      margin-bottom: 16px;
+      color: var(--clr-white);
+    }
+    .section-header p { color: var(--clr-text); font-size: 1.05rem; }
+    .grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px; }
+    .card {
+      background: var(--clr-surface);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: var(--radius-lg);
+      padding: 32px;
+      transition: var(--transition);
+    }
+    .card:hover {
+      background: var(--clr-surface-hover);
+      border-color: rgba(255,255,255,0.15);
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-card);
+    }
+    .card-icon {
+      width: 48px; height: 48px;
+      border-radius: 12px;
+      background: rgba(247, 147, 26, 0.1);
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: 20px;
+      color: var(--clr-bitcoin);
+    }
+    .card h3 { font-size: 1.3rem; margin-bottom: 12px; color: var(--clr-white); }
+    .card p { font-size: 0.95rem; color: var(--clr-text); }
+    .tag {
+      display: inline-block;
+      padding: 4px 10px;
+      background: rgba(227, 0, 27, 0.15);
+      color: var(--clr-red);
+      font-size: 0.75rem;
+      font-weight: 600;
+      border-radius: 6px;
+      margin-bottom: 12px;
+    }
+
+    /* Roadmap */
+    .roadmap { position: relative; }
+    .roadmap::before {
+      content: '';
+      position: absolute;
+      left: 50%; top: 0; bottom: 0;
+      width: 2px;
+      background: linear-gradient(to bottom, var(--clr-red), var(--clr-bitcoin), transparent);
+      transform: translateX(-50%);
+    }
+    .timeline-item {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+      margin-bottom: 40px;
+      position: relative;
+    }
+    .timeline-dot {
+      position: absolute;
+      left: 50%; top: 0;
+      width: 16px; height: 16px;
+      background: var(--clr-bitcoin);
+      border: 4px solid var(--clr-dark);
+      border-radius: 50%;
+      transform: translateX(-50%);
+      z-index: 2;
+    }
+    .timeline-content {
+      background: var(--clr-surface);
+      padding: 24px;
+      border-radius: var(--radius-md);
+      border: 1px solid rgba(255,255,255,0.05);
+    }
+    .timeline-content:nth-child(odd) { grid-column: 1; text-align: right; }
+    .timeline-content:nth-child(even) { grid-column: 2; text-align: left; }
+    .timeline-item:nth-child(even) .timeline-content { grid-column: 2; text-align: left; }
+    .timeline-item:nth-child(even) .timeline-content:nth-child(2) { grid-column: 1; text-align: right; }
+    .timeline-year {
+      font-weight: 700;
+      color: var(--clr-red);
+      font-size: 1.2rem;
+      margin-bottom: 8px;
+      display: block;
+    }
+
+    /* Stats */
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 24px;
+      text-align: center;
+    }
+    .stat-item h3 {
+      font-size: 2.5rem;
+      font-weight: 800;
+      color: var(--clr-white);
+      margin-bottom: 8px;
+    }
+    .stat-item p { color: var(--clr-text); font-size: 0.9rem; }
+
+    /* Contact/Footer */
+    .cta-section {
+      background: linear-gradient(135deg, rgba(227,0,27,0.1), rgba(247,147,26,0.1));
+      border-radius: var(--radius-lg);
+      padding: 60px 40px;
+      text-align: center;
+      border: 1px solid rgba(255,255,255,0.05);
+      margin-bottom: 80px;
+    }
+    footer {
+      padding: 40px 0;
+      border-top: 1px solid rgba(255,255,255,0.05);
+      text-align: center;
+      color: var(--clr-text);
+      font-size: 0.9rem;
+    }
+
+    /* Responsive */
+    @media (max-width: 992px) {
+      .hero-content { grid-template-columns: 1fr; text-align: center; }
+      .hero-text p { margin-left: auto; margin-right: auto; }
+      .hero-actions { justify-content: center; }
+      .hero-visual { order: -1; margin-bottom: 30px; }
+      .roadmap::before { left: 20px; }
+      .timeline-item { grid-template-columns: 1fr; gap: 20px; padding-left: 40px; }
+      .timeline-dot { left: 20px; transform: none; }
+      .timeline-content { grid-column: 1 !important; text-align: left !important; }
+      .stats-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 600px) {
+      .nav-links { display: none; }
+      .stats-grid { grid-template-columns: 1fr; }
+      .section-header h2 { font-size: 2rem; }
+      .card { padding: 24px; }
+    }
+
+    /* Reveal Animation */
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <div class="container nav-inner">
+      <div class="logo">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+          <path d="M12 2L2 7L12 12L22 7L12 2Z" fill="#E3001B"/>
+          <path d="M2 17L12 22L22 17" stroke="#F7931A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M2 12L12 17L22 12" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        Garuda<span>Bitcoin</span>
+      </div>
+      <ul class="nav-links">
+        <li><a href="#visi">Visi</a></li>
+        <li><a href="#framework">Framework</a></li>
+        <li><a href="#roadmap">Roadmap</a></li>
+        <li><a href="#kontak">Kontak</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <section class="hero">
+    <div class="container hero-content">
+      <div class="hero-text">
+        <h1>Strategic Digital Treasury <br>dengan Bitcoin</h1>
+        <p>Integrasi aset keras digital ke dalam cadangan strategis nasional & korporasi Indonesia. Lindung nilai inflasi, optimalkan balance sheet, dan bangun kedaulatan finansial era digital.</p>
+        <div class="hero-actions">
+          <a href="#framework" class="btn btn-primary">Pelajari Blueprint</a>
+          <a href="#kontak" class="btn btn-outline">Hubungi Advisor</a>
+        </div>
+      </div>
+      <div class="hero-visual">
+        <svg class="shield-svg" viewBox="0 0 200 240" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#E3001B"/>
+              <stop offset="100%" stop-color="#F7931A"/>
+            </linearGradient>
+          </defs>
+          <path d="M100 10L170 40V110C170 160 130 200 100 220C70 200 30 160 30 110V40L100 10Z" fill="url(#grad1)" opacity="0.9"/>
+          <path d="M100 20L160 45V105C160 150 125 185 100 200C75 185 40 150 40 105V45L100 20Z" fill="#0B0F19"/>
+          <path d="M100 40L140 55V95C140 130 115 160 100 170C85 160 60 130 60 95V55L100 40Z" stroke="url(#grad1)" stroke-width="2"/>
+          <g transform="translate(75, 80) scale(1.2)">
+            <path d="M15 2H11V10H15C17.5 10 19 12 19 14C19 16 17.5 18 15 18H11V26H15C18.5 26 21 24 21 20C21 16 18.5 14 15 14H11V2Z" fill="#F7931A"/>
+            <path d="M19 14H23C24 14 25 15 25 16V20C25 21 24 22 23 22H19V14Z" fill="#F7931A"/>
+            <path d="M19 2H23C24 2 25 3 25 4V8C25 9 24 10 23 10H19V2Z" fill="#F7931A"/>
+            <line x1="11" y1="6" x2="15" y2="6" stroke="#0B0F19" stroke-width="2"/>
+            <line x1="11" y1="22" x2="15" y2="22" stroke="#0B0F19" stroke-width="2"/>
+          </g>
+          <path d="M40 105C40 130 60 160 100 170V170C140 160 160 130 160 105" stroke="#FFFFFF" stroke-opacity="0.2" stroke-width="2"/>
+        </svg>
+      </div>
+    </div>
+  </section>
+
+  <section id="visi">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="tag">VISI STRATEGIS</span>
+        <h2>Hard Asset-Backed Financial Resilience</h2>
+        <p>Indonesia bertransisi dari ekonomi bergantung fiat menuju sistem hibrida yang didukung aset keras. Bitcoin berperan sebagai lapisan cadangan strategis untuk negara & korporasi.</p>
+      </div>
+      <div class="grid-2">
+        <div class="card reveal">
+          <div class="card-icon">🏛️</div>
+          <h3>National Reserve Framework</h3>
+          <p>Diversifikasi cadangan negara (USD & Emas) dengan alokasi 1–5% Bitcoin bertahap via DCA selama 5–10 tahun. Dikelola oleh otoritas moneter & fiskal dengan sovereign custody.</p>
+        </div>
+        <div class="card reveal">
+          <div class="card-icon">🏢</div>
+          <h3>Corporate Treasury Model</h3>
+          <p>Optimasi balance sheet perusahaan melalui alokasi kas ke Bitcoin. Level: Conservative (1–3%), Balanced (5–10%), Aggressive (10–20%). Lindung nilai terhadap devaluasi Rupiah.</p>
+        </div>
+        <div class="card reveal">
+          <div class="card-icon">⚡</div>
+          <h3>Energy → Bitcoin Strategy</h3>
+          <p>Monetisasi energi terbarukan (geothermal, hydro, gas flare) untuk mining Bitcoin. Mengubah energi terbuang menjadi aset cadangan strategis nasional.</p>
+        </div>
+        <div class="card reveal">
+          <div class="card-icon">🌐</div>
+          <h3>ASEAN Bitcoin Hub</h3>
+          <p>Posisi Indonesia sebagai pusat adopsi institusional & inovasi Web3 di Asia Tenggara melalui insentif pajak, regulatory clarity, dan infrastruktur custody berkelas dunia.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="framework" style="background: var(--clr-surface);">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="tag">GOVERNANCE & CUSTODY</span>
+        <h2>Arsitektur Keamanan & Tata Kelola</h2>
+        <p>Standar institusional untuk memastikan keamanan aset, kepatuhan regulasi, dan transparansi audit.</p>
+      </div>
+      <div class="grid-2">
+        <div class="card reveal">
+          <div class="card-icon">🔐</div>
+          <h3>Custody Architecture</h3>
+          <p>Multi-signature wallet (3-of-5 atau 5-of-7), cold storage hardware-grade, distribusi geografis aman, dan integrasi dengan institutional custodian berlisensi.</p>
+        </div>
+        <div class="card reveal">
+          <div class="card-icon">📊</div>
+          <h3>Accounting & SOP</h3>
+          <p>Penerapan standar IFRS untuk valuasi wajar (fair value), audit internal berkala, governance board approval, dan framework manajemen risiko volatilitas.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="roadmap" class="roadmap">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="tag">IMPLEMENTATION</span>
+        <h2>Roadmap Adopsi Strategis</h2>
+        <p>Tahapan bertahap menuju integrasi penuh Bitcoin sebagai cadangan strategis nasional & korporasi.</p>
+      </div>
+      <div class="timeline-item reveal">
+        <div class="timeline-dot"></div>
+        <div class="timeline-content">
+          <span class="timeline-year">Phase 1 (0–2 Tahun)</span>
+          <h3>Fondasi & Pilot</h3>
+          <p>Regulatory sandbox, edukasi nasional, pilot corporate treasury (1%), pembentukan working group antar kementerian & OJK/Bappebti.</p>
+        </div>
+        <div class="timeline-content">
+          <span class="timeline-year">Phase 2 (3–5 Tahun)</span>
+          <h3>Akumulasi Institusional</h3>
+          <p>Sovereign accumulation bertahap, integrasi mining energi terbarukan, adopsi oleh BUMN & korporasi besar, upgrade standar akuntansi.</p>
+        </div>
+      </div>
+      <div class="timeline-item reveal">
+        <div class="timeline-dot"></div>
+        <div class="timeline-content">
+          <span class="timeline-year">Phase 3 (5–10 Tahun)</span>
+          <h3>Strategic Reserve & ASEAN Hub</h3>
+          <p>Bitcoin resmi sebagai lapisan cadangan strategis, full economic integration, Indonesia menjadi crypto hub regional, flywheel adoption → liquidity → trust.</p>
+        </div>
+        <div class="timeline-content">
+          <span class="timeline-year">Risk Mitigation</span>
+          <h3>Framework Pengendalian</h3>
+          <p>DCA strategy, long-term horizon (5–10 thn), governance ketat, public education, dan mekanisme backstop untuk volatilitas ekstrem.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="container">
+      <div class="stats-grid reveal">
+        <div class="stat-item">
+          <h3 class="counter" data-target="21">0</h3>
+          <p>Juta Supply Terbatas</p>
+        </div>
+        <div class="stat-item">
+          <h3 class="counter" data-target="5">0</h3>
+          <p>Tahun Accumulation Horizon</p>
+        </div>
+        <div class="stat-item">
+          <h3 class="counter" data-target="100">0</h3>
+          <p>% Decentralized</p>
+        </div>
+        <div class="stat-item">
+          <h3 class="counter" data-target="1">0</h3>
+          <p>Strategic Reserve Asset</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="kontak">
+    <div class="container">
+      <div class="cta-section reveal">
+        <h2 style="font-size: 2rem; margin-bottom: 16px; color: var(--clr-white);">Siap Membangun Ketahanan Finansial Digital?</h2>
+        <p style="margin-bottom: 24px; color: var(--clr-text);">Konsultasikan strategi Bitcoin Treasury untuk korporasi, institusi, atau government advisory.</p>
+        <div style="display: flex; flex-direction: column; gap: 12px; align-items: center;">
+          <div style="font-weight: 600; color: var(--clr-bitcoin);">Aryo Utomo</div>
+          <div style="color: var(--clr-text); font-size: 0.9rem;">Indonesia Bitcoin Treasury Advisor</div>
+          <div style="color: var(--clr-text-light); font-size: 1.1rem; margin-top: 4px;">📞 0878-0864-4999</div>
+          <a href="tel:087808644999" class="btn btn-primary" style="margin-top: 16px;">Hubungi Sekarang</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container">
+      <p>&copy; 2026 Garuda Bitcoin Strategic Framework. Blueprint untuk Adopsi Treasury & Digital Reserve Indonesia.</p>
+    </div>
+  </footer>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const revealElements = document.querySelectorAll('.reveal');
+      const counters = document.querySelectorAll('.counter');
+      
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.15 });
+
+      revealElements.forEach(el => observer.observe(el));
+
+      const counterObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            const counterEl = entry.target;
+            const target = parseInt(counterEl.getAttribute('data-target'));
+            const duration = 1500;
+            const startTime = performance.now();
+            
+            const animateCounter = (currentTime) => {
+              const elapsed = currentTime - startTime;
+              const progress = Math.min(elapsed / duration, 1);
+              const easeOut = 1 - Math.pow(1 - progress, 3);
+              const currentVal = Math.floor(easeOut * target);
+              
+              counterEl.textContent = currentVal + (target === 21 ? 'Jt' : target === 100 ? '%' : '+');
+              
+              if (progress < 1) {
+                requestAnimationFrame(animateCounter);
+              } else {
+                counterEl.textContent = target + (target === 21 ? 'Jt' : target === 100 ? '%' : target === 1 ? '' : '+');
+              }
+            };
+            requestAnimationFrame(animateCounter);
+            counterObserver.unobserve(counterEl);
+          }
+        });
+      }, { threshold: 0.5 });
+
+      counters.forEach(counter => counterObserver.observe(counter));
+
+      // Smooth scroll for nav links
+      document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function(e) {
+          e.preventDefault();
+          const targetId = this.getAttribute('href');
+          const targetSection = document.querySelector(targetId);
+          if (targetSection) {
+            targetSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }
+        });
+      });
+    });
+  </script>
+</body>
+</html>
+
