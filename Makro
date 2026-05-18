@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bitcoin Macro | Market & Analysis</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        bitcoin: '#F7931A',
+                        dark: '#0a0a0a',
+                        card: '#111111',
+                        accent: '#2a2a2a'
+                    },
+                    animation: {
+                        'fade-in-up': 'fadeInUp 0.8s ease-out forwards',
+                        'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                    },
+                    keyframes: {
+                        fadeInUp: {
+                            '0%': { opacity: '0', transform: 'translateY(20px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background-color: #050505;
+            color: #e5e5e5;
+        }
+        .glass-panel {
+            background: rgba(17, 17, 17, 0.7);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        .text-gradient {
+            background: linear-gradient(to right, #ffffff, #a3a3a3);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .text-bitcoin-gradient {
+            background: linear-gradient(to right, #F7931A, #ffbf69);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0a0a0a; 
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #333; 
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #F7931A; 
+        }
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease-out;
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body class="font-sans antialiased overflow-x-hidden">
+
+    <!-- Navigation -->
+    <nav class="fixed w-full z-50 glass-panel border-b border-white/5">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex items-center gap-2">
+                    <svg class="w-8 h-8 text-bitcoin" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 15h-2v-2h2v2zm0-4h-2V7h2v6zm4 4h-2v-2h2v2zm0-4h-2V7h2v6z"/>
+                        <path d="M14.5 10.5c0-.83-.67-1.5-1.5-1.5h-.5v-2h1.5c1.38 0 2.5-1.12 2.5-2.5S15.38 2 14 2h-4v2h4c.28 0 .5.22.5.5s-.22.5-.5.5h-2.5v4h1.5c.83 0 1.5.67 1.5 1.5s-.67 1.5-1.5 1.5h-1.5v4h2.5c.28 0 .5.22.5.5s-.22.5-.5.5h-4v2h4c1.38 0 2.5-1.12 2.5-2.5s-1.12-2.5-2.5-2.5h-1.5v-4h.5c.83 0 1.5-.67 1.5-1.5z"/>
+                    </svg>
+                    <span class="text-xl font-bold tracking-tighter">BTC<span class="text-bitcoin">MACRO</span></span>
+                </div>
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-8">
+                        <a href="#macro" class="hover:text-bitcoin transition-colors px-3 py-2 rounded-md text-sm font-medium">Macro</a>
+                        <a href="#bitcoin" class="hover:text-bitcoin transition-colors px-3 py-2 rounded-md text-sm font-medium">Bitcoin</a>
+                        <a href="#utxo" class="hover:text-bitcoin transition-colors px-3 py-2 rounded-md text-sm font-medium">UTXO Tech</a>
+                        <a href="#" class="bg-bitcoin text-black hover:bg-orange-600 transition-colors px-4 py-2 rounded-full text-sm font-bold">Subscribe</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Ticker -->
+    <div class="bg-card border-b border-white/5 py-2 overflow-hidden whitespace-nowrap mt-16">
+        <div class="inline-block animate-marquee pl-4 text-xs text-gray-400 font-mono">
+            <span class="mr-8">BTC/USD: <span class="text-green-400">$98,420 (+2.4%)</span></span>
+            <span class="mr-8">M2 Supply: <span class="text-red-400">+0.12% (WoW)</span></span>
+            <span class="mr-8">Hashrate: <span class="text-green-400">680 EH/s (ATH)</span></span>
+            <span class="mr-8">CPI Data: <span class="text-red-400">3.2% YoY</span></span>
+            <span class="mr-8">DXY Index: <span class="text-red-400">104.2 (-0.3%)</span></span>
+            <span class="mr-8">Gold: <span class="text-green-400">$2,450</span></span>
+            <span class="mr-8">S&P 500: <span class="text-red-400">-0.5%</span></span>
+            <span class="mr-8">BTC Dominance: 58.4%</span>
+        </div>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="relative h-screen flex items-center justify-center overflow-hidden">
+        <!-- Background Image -->
+        <div class="absolute inset-0 z-0">
+            <img src="https://image.qwenlm.ai/public_source/164c25e6-66d6-4dd4-ad29-244da750594f/1a8cb47e9-8355-481c-913d-fa6374c2c088.png" alt="Bitcoin Macro" class="w-full h-full object-cover opacity-40">
+            <div class="absolute inset-0 bg-gradient-to-t from-[#050505] via-[#050505]/80 to-transparent"></div>
+        </div>
+
+        <div class="relative z-10 text-center px-4 max-w-4xl mx-auto">
+            <div class="mb-4 inline-block px-4 py-1 rounded-full border border-bitcoin/30 bg-bitcoin/10 text-bitcoin text-xs font-bold tracking-widest uppercase animate-fade-in-up">
+                Macroeconomic Analysis
+            </div>
+            <h1 class="text-5xl md:text-7xl font-black mb-6 leading-tight tracking-tight animate-fade-in-up" style="animation-delay: 0.1s;">
+                The Old System Isn't Crashing.<br>
+                <span class="text-bitcoin-gradient">It's Slowly Sinking.</span>
+            </h1>
+            <p class="text-lg md:text-xl text-gray-400 mb-8 max-w-2xl mx-auto animate-fade-in-up" style="animation-delay: 0.2s;">
+                Understanding the silent wealth transfer from fiat holders to hard assets. Fiat is flexible but sacrifices long-term value. Bitcoin offers a system that cannot be manipulated.
+            </p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center animate-fade-in-up" style="animation-delay: 0.3s;">
+                <a href="#macro" class="px-8 py-4 bg-bitcoin text-black font-bold rounded-lg hover:bg-orange-500 transition-all transform hover:scale-105">
+                    Why Fiat Fails
+                </a>
+                <a href="#utxo" class="px-8 py-4 glass-panel text-white font-bold rounded-lg hover:bg-white/10 transition-all border border-white/10">
+                    Explore UTXO Strategy
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Macro Section: The Fiat Problem -->
+    <section id="macro" class="py-24 relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16 reveal">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4">Why Fiat = Hidden Inflation</h2>
+                <div class="w-20 h-1 bg-bitcoin mx-auto rounded-full"></div>
+                <p class="mt-4 text-gray-400 max-w-2xl mx-auto">Inflation isn't just prices going up; it's the value of your money melting away.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Card 1 -->
+                <div class="glass-panel p-8 rounded-2xl hover:border-bitcoin/50 transition-colors group reveal">
+                    <div class="w-12 h-12 bg-bitcoin/10 rounded-lg flex items-center justify-center mb-6 text-bitcoin group-hover:scale-110 transition-transform">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"></path></svg>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3 text-white">1. Unlimited Supply</h3>
+                    <p class="text-gray-400 text-sm leading-relaxed mb-4">
+                        Governments and central banks can create money at will through printing or monetary policy.
+                    </p>
+                    <div class="bg-black/40 p-4 rounded-lg border border-white/5">
+                        <p class="text-xs text-gray-500 font-mono">ANALOGY</p>
+                        <p class="text-sm text-gray-300 mt-1">Pizza cut into 8 slices instead of 4. You still hold "1 slice", but it's half the size.</p>
+                    </div>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="glass-panel p-8 rounded-2xl hover:border-bitcoin/50 transition-colors group reveal" style="transition-delay: 0.1s;">
+                    <div class="w-12 h-12 bg-bitcoin/10 rounded-lg flex items-center justify-center mb-6 text-bitcoin group-hover:scale-110 transition-transform">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3 text-white">2. The Invisible Tax</h3>
+                    <p class="text-gray-400 text-sm leading-relaxed mb-4">
+                        Prices rise not because goods are expensive, but because currency value falls. A tax you don't see.
+                    </p>
+                    <div class="bg-black/40 p-4 rounded-lg border border-white/5">
+                        <p class="text-xs text-gray-500 font-mono">ANALOGY</p>
+                        <p class="text-sm text-gray-300 mt-1">Like an ice cube in your hand. You don't "lose" it directly, but it melts until it's gone.</p>
+                    </div>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="glass-panel p-8 rounded-2xl hover:border-bitcoin/50 transition-colors group reveal" style="transition-delay: 0.2s;">
+                    <div class="w-12 h-12 bg-bitcoin/10 rounded-lg flex items-center justify-center mb-6 text-bitcoin group-hover:scale-110 transition-transform">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path></svg>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3 text-white">3. Systemic Devaluation</h3>
+                    <p class="text-gray-400 text-sm leading-relaxed mb-4">
+                        Modern fiat is designed for inflation (target 2-3%). Your money is planned to lose value over time.
+                    </p>
+                    <div class="bg-black/40 p-4 rounded-lg border border-white/5">
+                        <p class="text-xs text-gray-500 font-mono">ANALOGY</p>
+                        <p class="text-sm text-gray-300 mt-1">A treadmill. You must keep running just to stay in place. Stop, and you fall behind.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Visual Break -->
+            <div class="mt-20 flex flex-col md:flex-row items-center gap-12 reveal">
+                <div class="w-full md:w-1/2">
+                    <img src="https://image.qwenlm.ai/public_source/164c25e6-66d6-4dd4-ad29-244da750594f/10d326f3f-8f9b-474b-9fec-b5bbaa6999c9.png" alt="Melting Fiat" class="rounded-2xl shadow-2xl shadow-orange-900/20 border border-white/10">
+                </div>
+                <div class="w-full md:w-1/2">
+                    <h3 class="text-3xl font-bold mb-6">The Silent Wealth Transfer</h3>
+                    <ul class="space-y-4 text-gray-300">
+                        <li class="flex items-start">
+                            <span class="text-bitcoin mr-3 mt-1"></span>
+                            <span><strong>No Notification:</strong> There is no alert saying "your money lost 5% value today."</span>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-bitcoin mr-3 mt-1">▹</span>
+                            <span><strong>No Official Bill:</strong> It affects housing, food, and daily costs silently.</span>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-bitcoin mr-3 mt-1">▹</span>
+                            <span><strong>The Result:</strong> A transfer of wealth from savers to the system.</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Bitcoin Section -->
+    <section id="bitcoin" class="py-24 bg-card border-y border-white/5 relative overflow-hidden">
+        <div class="absolute top-0 right-0 w-1/3 h-full bg-bitcoin/5 blur-[100px]"></div>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="text-center mb-16 reveal">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4">Bitcoin: The Hard Money Alternative</h2>
+                <p class="text-gray-400">A system that cannot be manipulated.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+                <div class="reveal">
+                    <div class="space-y-8">
+                        <div class="flex gap-4">
+                            <div class="flex-shrink-0 w-12 h-12 bg-black rounded-full flex items-center justify-center border border-bitcoin">
+                                <span class="font-bold text-bitcoin">21M</span>
+                            </div>
+                            <div>
+                                <h4 class="text-xl font-bold mb-1">Fixed Supply</h4>
+                                <p class="text-sm text-gray-400">Unlike fiat, Bitcoin cannot be printed at will. Scarcity is mathematically enforced.</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-4">
+                            <div class="flex-shrink-0 w-12 h-12 bg-black rounded-full flex items-center justify-center border border-bitcoin">
+                                <svg class="w-5 h-5 text-bitcoin" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                            </div>
+                            <div>
+                                <h4 class="text-xl font-bold mb-1">Transparent & Decentralized</h4>
+                                <p class="text-sm text-gray-400">Everyone sees the ledger. No central authority can alter the rules.</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-4">
+                            <div class="flex-shrink-0 w-12 h-12 bg-black rounded-full flex items-center justify-center border border-bitcoin">
+                                <svg class="w-5 h-5 text-bitcoin" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+                            </div>
+                            <div>
+                                <h4 class="text-xl font-bold mb-1">Digital Gold</h4>
+                                <p class="text-sm text-gray-400">Does not increase, does not shrink. A store of value for the digital age.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="relative reveal delay-100">
+                    <!-- Interactive Chart Simulation -->
+                    <div class="glass-panel p-6 rounded-xl border border-bitcoin/20">
+                        <div class="flex justify-between items-center mb-4">
+                            <span class="text-sm font-bold">BTC/USD (5Y)</span>
+                            <span class="text-bitcoin font-mono">+14,000%</span>
+                        </div>
+                        <div class="h-48 w-full bg-gradient-to-t from-bitcoin/20 to-transparent relative rounded-lg overflow-hidden">
+                             <!-- SVG Chart -->
+                             <svg viewBox="0 0 400 150" class="w-full h-full" preserveAspectRatio="none">
+                                 <path d="M0,140 C50,130 80,145 120,100 C160,55 180,90 220,60 C260,30 280,70 320,40 C360,10 380,20 400,5" fill="none" stroke="#F7931A" stroke-width="3" />
+                                 <path d="M0,140 C50,130 80,145 120,100 C160,55 180,90 220,60 C260,30 280,70 320,40 C360,10 380,20 400,5 L400,150 L0,150 Z" fill="url(#grad)" opacity="0.2"/>
+                                 <defs>
+                                     <linearGradient id="grad" x1="0%" y1="0%" x2="0%" y2="100%">
+                                         <stop offset="0%" style="stop-color:#F7931A;stop-opacity:1" />
+                                         <stop offset="100%" style="stop-color:#F7931A;stop-opacity:0" />
+                                     </linearGradient>
+                                 </defs>
+                             </svg>
+                             <!-- Animated Dot -->
+                             <div class="absolute top-2 right-0 w-3 h-3 bg-bitcoin rounded-full shadow-[0_0_10px_#F7931A] animate-pulse"></div>
+                        </div>
+                        <div class="mt-4 flex justify-between text-xs text-gray-500 font-mono">
+                            <span>2021</span>
+                            <span>2023</span>
+                            <span>2026</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- UTXO Management Section -->
+    <section id="utxo" class="py-24 relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col lg:flex-row gap-16 items-center">
+                <div class="w-full lg:w-1/2 reveal">
+                     <img src="https://image.qwenlm.ai/public_source/164c25e6-66d6-4dd4-ad29-244da750594f/1f65c7e63-36f2-467a-a81c-9bc7eea84b5f.png" alt="UTXO Structure" class="rounded-2xl shadow-2xl shadow-blue-900/10 border border-white/10 w-full">
+                </div>
+                <div class="w-full lg:w-1/2 reveal">
+                    <div class="inline-block px-3 py-1 bg-blue-500/10 text-blue-400 rounded text-xs font-bold mb-4 border border-blue-500/20">INSTITUTIONAL INFRASTRUCTURE</div>
+                    <h2 class="text-3xl md:text-4xl font-bold mb-6">UTXO Management</h2>
+                    <p class="text-gray-400 mb-8 leading-relaxed">
+                        For advanced users and institutions, Bitcoin is more than just a balance. It's a collection of UTXOs (Unspent Transaction Outputs). Proper management is crucial for efficiency, privacy, and security.
+                    </p>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div class="bg-card p-4 rounded-lg border border-white/5 hover:border-blue-500/50 transition-colors">
+                            <h4 class="font-bold text-white mb-2 flex items-center">
+                                <svg class="w-4 h-4 mr-2 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path></svg>
+                                Optimization
+                            </h4>
+                            <p class="text-xs text-gray-500">Consolidating or splitting UTXOs to optimize fee efficiency.</p>
+                        </div>
+                        <div class="bg-card p-4 rounded-lg border border-white/5 hover:border-blue-500/50 transition-colors">
+                            <h4 class="font-bold text-white mb-2 flex items-center">
+                                <svg class="w-4 h-4 mr-2 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                                Fee Management
+                            </h4>
+                            <p class="text-xs text-gray-500">Strategic transaction construction to minimize network costs.</p>
+                        </div>
+                        <div class="bg-card p-4 rounded-lg border border-white/5 hover:border-blue-500/50 transition-colors">
+                            <h4 class="font-bold text-white mb-2 flex items-center">
+                                <svg class="w-4 h-4 mr-2 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
+                                Treasury Structuring
+                            </h4>
+                            <p class="text-xs text-gray-500">Large scale asset management for corporate treasuries.</p>
+                        </div>
+                        <div class="bg-card p-4 rounded-lg border border-white/5 hover:border-blue-500/50 transition-colors">
+                            <h4 class="font-bold text-white mb-2 flex items-center">
+                                <svg class="w-4 h-4 mr-2 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+                                Privacy Enhancement
+                            </h4>
+                            <p class="text-xs text-gray-500">Coin Control to prevent address clustering and tracking.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-8 p-4 bg-blue-900/10 border border-blue-500/20 rounded-lg">
+                        <p class="text-sm text-blue-200">
+                            <strong>Strategic Insight:</strong> Poor UTXO management increases fees, reduces privacy, and complicates audits. Good strategy ensures scalability and security.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-black border-t border-white/10 py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
+                <div class="col-span-1 md:col-span-2">
+                    <div class="flex items-center gap-2 mb-4">
+                        <span class="text-xl font-bold tracking-tighter">BTC<span class="text-bitcoin">MACRO</span></span>
+                    </div>
+                    <p class="text-gray-500 text-sm max-w-xs">
+                        Decoding the macroeconomic shift towards digital scarcity. Education on Fiat devaluation, Bitcoin mechanics, and Institutional UTXO management.
+                    </p>
+                </div>
+                <div>
+                    <h4 class="text-white font-bold mb-4">Resources</h4>
+                    <ul class="space-y-2 text-sm text-gray-500">
+                        <li><a href="#" class="hover:text-bitcoin transition-colors">Fiat Analysis</a></li>
+                        <li><a href="#" class="hover:text-bitcoin transition-colors">Bitcoin Whitepaper</a></li>
+                        <li><a href="#" class="hover:text-bitcoin transition-colors">UTXO Guide</a></li>
+                        <li><a href="#" class="hover:text-bitcoin transition-colors">Market Data</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-white font-bold mb-4">Legal</h4>
+                    <ul class="space-y-2 text-sm text-gray-500">
+                        <li><a href="#" class="hover:text-bitcoin transition-colors">Privacy Policy</a></li>
+                        <li><a href="#" class="hover:text-bitcoin transition-colors">Terms of Service</a></li>
+                        <li><a href="#" class="hover:text-bitcoin transition-colors">Disclaimer</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-t border-white/5 pt-8 flex flex-col md:flex-row justify-between items-center text-xs text-gray-600">
+                <p>&copy; 2026 BTC Macro Media. All rights reserved.</p>
+                <p class="mt-2 md:mt-0">Not financial advice. Do your own research.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script>
+        // Scroll Reveal Animation
+        function reveal() {
+            var reveals = document.querySelectorAll(".reveal");
+            for (var i = 0; i < reveals.length; i++) {
+                var windowHeight = window.innerHeight;
+                var elementTop = reveals[i].getBoundingClientRect().top;
+                var elementVisible = 150;
+                if (elementTop < windowHeight - elementVisible) {
+                    reveals[i].classList.add("active");
+                }
+            }
+        }
+        window.addEventListener("scroll", reveal);
+        // Trigger once on load
+        reveal();
+
+        // Ticker Animation (Duplicate content for seamless loop)
+        const ticker = document.querySelector('.animate-marquee');
+        const clone = ticker.innerHTML;
+        ticker.innerHTML += clone; // Simple infinite loop effect via duplication
+    </script>
+</body>
+</html>
+
